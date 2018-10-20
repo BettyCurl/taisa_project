@@ -1,0 +1,3 @@
+# To ignore all files with senstive info
+config/secrets.yml
+spec/fixtures
