@@ -1,1 +1,1 @@
-test
+# This project is meant to build the internal database for TAISA to manage the service points
