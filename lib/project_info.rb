@@ -1,52 +1,50 @@
 require 'http'
 require 'yaml'
 
-config = YAML.safe_load(File.read('config/secrets.yml'))
+config = YAML.safe_load(File.read('../config/secrets.yml'))
 
-def gh_api_path(path)
-'https://api.github.com/' + path
+# "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Taipei%20Main%20Station&inputtype=textquery&key=AIzaSyD44w7DcwWEjSPw-wN1OwsPvuh0VWg4UBU"
+# "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,rating,formatted_address&key=AIzaSyD44w7DcwWEjSPw-wN1OwsPvuh0VWg4UBU"
+def map_api_path(service, input, fields)
+  return 'https://maps.googleapis.com/maps/api/place/' + service + '/json?placeid=' + input + '&fields=' + fields if service == 'details'
+  return 'https://maps.googleapis.com/maps/api/place/' + service + '/json?input=' + input + '&inputtype=textquery' if service == 'findplacefromtext'
 end
 
-def call_gh_url(config, url)
-  HTTP.headers(
-  'Accept' => 'application/vnd.github.v3+json',
-  'Authorization' => "token #{config['GH_TOKEN']}").get(url)
+def call_map_url(config, url)
+  HTTP.get(url + "&key=#{config['MAP_KEY']}")
 end
 
-gh_response = {}
-gh_results = {}
-
+map_response = {}
+map_results = {}
 
 ## HAPPY requests
-project_url = gh_api_path('repos/soumyaray/YPBT-app')
-gh_response[project_url] = call_gh_url(config, project_url)
-project = gh_response[project_url].parse
-gh_results['size'] = project['size']
-# should be 551
+place_url = map_api_path( 'findplacefromtext' , 'Taipei%20Main%20Station', '')
+map_response[place_url.to_sym] = call_map_url(config, place_url)
+place = JSON.parse(map_response[place_url.to_sym], :symbolize_names => true)
+map_results[:place_id] = place[:candidates][0][:place_id]
+## Why not place[:candidates][:place_id]??
+# Should be ChIJcYy0Y3KpQjQRXiW_s2lGln8
 
-gh_results['owner'] = project['owner']
-# should have info about Soumya
+#details_url = map_api_path('details', 'ChIJcYy0Y3KpQjQRXiW_s2lGln8','name,rating,formatted_address')
 
-gh_results['git_url'] = project['git_url']
-# should be "git://github.com/soumyaray/YPBT-app.git"
 
-gh_results['contributors_url'] = project['contributors_url']
-# should be https://api.github.com/repos/soumyaray/YPBT-app/contributors
+details_url = map_api_path('details', map_results[:place_id],'name,rating,formatted_address')
+map_response[details_url.to_sym] = call_map_url(config, details_url)
+details = JSON.parse(map_response[details_url.to_sym], :symbolize_names => true)
+map_results[:formatted_address] = details[:result][:formatted_address]
+# should be Taiwan, \u53F0\u5317\u5E02\u9ECE\u660E\u91CC
 
-contributors_url = project['contributors_url']
-gh_response[contributors_url] = call_gh_url(config, contributors_url)
-contributors = gh_response[contributors_url].parse
-gh_results['contributors'] = contributors
-contributors.count
-# should be 3 contributors array
+map_results[:name] = details[:result][:name]
+# should be Taipei Main Station
 
-contributors.map { |c| c['login'] }
-# should be ["Yuan-Yu", "SOA-KunLin", "luyimin"]
+map_results[:rating] = details[:result][:rating]
+# should be 4.1
 
 ## BAD request
-bad_project_url = gh_api_path('soumyaray/foobar')
-gh_response[bad_project_url] = call_gh_url(config, bad_project_url)
-gh_response[bad_project_url].parse # makes sure any streaming finishes
+bad_project_url = map_api_path('findplacefromtext', '', '')
+map_response[bad_project_url] = call_map_url(config, bad_project_url)
+map_response[bad_project_url].parse # makes sure any streaming finishes
+
 ## SAVE responses and results
-File.write('spec/fixtures/gh_response.yml', gh_response.to_yaml)
-File.write('spec/fixtures/gh_results.yml', gh_results.to_yaml)
+File.write('../spec/fixtures/map_response.yml', map_response.to_yaml)
+File.write('../spec/fixtures/map_results.yml', map_results.to_yaml)
