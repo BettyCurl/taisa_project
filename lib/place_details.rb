@@ -1,6 +1,5 @@
 module DataCollection
   class PlaceDetails
-
     def initialize(place_id, url, place_details_data)
       @details = place_details_data
       @place_id = place_id
@@ -22,6 +21,5 @@ module DataCollection
     def formatted_address
       @details['result']['formatted_address']
     end
-
   end
 end

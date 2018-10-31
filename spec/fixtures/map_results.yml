@@ -1,0 +1,19 @@
+---
+- candidates:
+  - place_id: ChIJcYy0Y3KpQjQRXiW_s2lGln8
+  debug_log:
+    line: []
+  status: OK
+  url: https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Taipei%20Main%20Station&inputtype=textquery
+- html_attributions: []
+  result:
+    formatted_address: Taiwan, 台北市黎明里
+    name: Taipei Main Station
+    rating: 4.1
+  status: OK
+  url: https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJcYy0Y3KpQjQRXiW_s2lGln8&fields=name,rating,formatted_address
+- candidates: []
+  debug_log:
+    line: []
+  status: INVALID_REQUEST
+  url: https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=&inputtype=textquery

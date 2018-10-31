@@ -1,0 +1,273 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Taipei%20Main%20Station&inputtype=textquery&key=AIzaSyCkF7rIDbq8WFxWv8i09_dpeTkf1ueXwRA
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Connection:
+      - close
+      Host:
+      - maps.googleapis.com
+      User-Agent:
+      - http.rb/3.3.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Sun, 28 Oct 2018 07:56:34 GMT
+      Expires:
+      - Sun, 28 Oct 2018 08:01:34 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - scaffolding on HTTPServer2
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="44,43,39,35"
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "candidates" : [
+              {
+                 "place_id" : "ChIJcYy0Y3KpQjQRXiW_s2lGln8"
+              }
+           ],
+           "debug_log" : {
+              "line" : []
+           },
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Sun, 28 Oct 2018 07:56:34 GMT
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Taipei%20Main%20Station&inputtype=textquery&key=AIzaSyCkF7rIDbq8WFxWv8i09_dpeTkf1ueXwRA
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Connection:
+      - close
+      Host:
+      - maps.googleapis.com
+      User-Agent:
+      - http.rb/3.3.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Sun, 28 Oct 2018 08:38:18 GMT
+      Expires:
+      - Sun, 28 Oct 2018 08:43:18 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - scaffolding on HTTPServer2
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="44,43,39,35"
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "candidates" : [
+              {
+                 "place_id" : "ChIJcYy0Y3KpQjQRXiW_s2lGln8"
+              }
+           ],
+           "debug_log" : {
+              "line" : []
+           },
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Sun, 28 Oct 2018 08:38:18 GMT
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=&inputtype=textquery&key=AIzaSyCkF7rIDbq8WFxWv8i09_dpeTkf1ueXwRA
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Connection:
+      - close
+      Host:
+      - maps.googleapis.com
+      User-Agent:
+      - http.rb/3.3.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Sun, 28 Oct 2018 09:36:59 GMT
+      Expires:
+      - Sun, 28 Oct 2018 09:41:59 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - scaffolding on HTTPServer2
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="44,43,39,35"
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "candidates" : [],
+           "debug_log" : {
+              "line" : []
+           },
+           "status" : "INVALID_REQUEST"
+        }
+    http_version: 
+  recorded_at: Sun, 28 Oct 2018 09:36:59 GMT
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Taipei%20Main%20Station&inputtype=textquery&key=BAD_KEY
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Connection:
+      - close
+      Host:
+      - maps.googleapis.com
+      User-Agent:
+      - http.rb/3.3.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Sun, 28 Oct 2018 09:44:03 GMT
+      Pragma:
+      - no-cache
+      Expires:
+      - Fri, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, must-revalidate
+      Server:
+      - scaffolding on HTTPServer2
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="44,43,39,35"
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "candidates" : [],
+           "error_message" : "The provided API key is invalid.",
+           "status" : "REQUEST_DENIED"
+        }
+    http_version: 
+  recorded_at: Sun, 28 Oct 2018 09:44:03 GMT
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/details/json?fields=name,rating,formatted_address&key=AIzaSyCkF7rIDbq8WFxWv8i09_dpeTkf1ueXwRA&placeid=ChIJcYy0Y3KpQjQRXiW_s2lGln8
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Connection:
+      - close
+      Host:
+      - maps.googleapis.com
+      User-Agent:
+      - http.rb/3.3.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Sun, 28 Oct 2018 09:46:01 GMT
+      Expires:
+      - Sun, 28 Oct 2018 09:51:01 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - scaffolding on HTTPServer2
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="44,43,39,35"
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Language,Accept-Encoding
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "html_attributions" : [],
+           "result" : {
+              "formatted_address" : "Taiwan, 台北市黎明里",
+              "name" : "Taipei Main Station",
+              "rating" : 4.1
+           },
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Sun, 28 Oct 2018 09:46:01 GMT
+recorded_with: VCR 4.0.0

@@ -5,7 +5,7 @@ module DataCollection
     def initialize(place_name, url, data_source)
       @place_name = place_name
       @place_url = url
-      @place_id = data_source['candidates'][0]['place_id'] 
+      @place_id = data_source['candidates'][0]['place_id']
       @data_source = data_source
     end
 
@@ -20,7 +20,5 @@ module DataCollection
     def search_text
       @place_name
     end
-
   end
-
 end
