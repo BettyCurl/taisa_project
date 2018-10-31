@@ -4,6 +4,15 @@ source 'https://rubygems.org'
 # Networkding gems
 gem 'http', '~> 3.0'
 
-#Testing
+# Testing
 gem 'minitest', '~> 5.0'
 gem 'minitest-rg', '~> 5.0'
+gem 'rake'
+gem 'simplecov'
+gem 'vcr'
+gem 'webmock'
+
+# Quality testing gems
+gem 'flog'
+gem 'reek'
+gem 'rubocop'

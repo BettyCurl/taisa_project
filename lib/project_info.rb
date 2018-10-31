@@ -2,12 +2,15 @@ require 'http'
 require 'yaml'
 
 config = YAML.safe_load(File.read('../config/secrets.yml'))
+DETAILS_ITMES = 'name,rating,formatted_address'
 
-# "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Taipei%20Main%20Station&inputtype=textquery&key="
-# "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,rating,formatted_address&key="
 def map_api_path(service, input, fields)
-  return 'https://maps.googleapis.com/maps/api/place/' + service + '/json?placeid=' + input + '&fields=' + fields if service == 'details'
-  return 'https://maps.googleapis.com/maps/api/place/' + service + '/json?input=' + input + '&inputtype=textquery' if service == 'findplacefromtext'
+  case service
+  when 'details'
+    'https://maps.googleapis.com/maps/api/place/' + service + '/json?placeid=' + input + '&fields=' + fields
+  when 'findplacefromtext'
+    'https://maps.googleapis.com/maps/api/place/' + service + '/json?input=' + input + '&inputtype=textquery'
+  end
 end
 
 def call_map_url(config, url)
@@ -15,36 +18,29 @@ def call_map_url(config, url)
 end
 
 map_response = {}
-map_results = {}
+map_results = []
 
 ## HAPPY requests
-place_url = map_api_path( 'findplacefromtext' , 'Taipei%20Main%20Station', '')
+place_url = map_api_path('findplacefromtext', 'Taipei%20Main%20Station', '')
 map_response[place_url] = call_map_url(config, place_url)
 place = JSON.parse(map_response[place_url])
-map_results['place_url'] = place_url
-map_results['place_id'] = place['candidates'][0]['place_id']
-## Why not place[:candidates][:place_id]??
+place['url'] = place_url
+map_results << place
 # Should be ChIJcYy0Y3KpQjQRXiW_s2lGln8
 
-#details_url = map_api_path('details', 'ChIJcYy0Y3KpQjQRXiW_s2lGln8','name,rating,formatted_address')
-
-details_url = map_api_path('details', map_results['place_id'],'name,rating,formatted_address')
+details_url = map_api_path('details', place['candidates'][0]['place_id'], DETAILS_ITMES)
 map_response[details_url] = call_map_url(config, details_url)
 details = JSON.parse(map_response[details_url])
-map_results['details_url'] = details_url
-map_results['formatted_address'] = details['result']['formatted_address']
-# should be Taiwan, \u53F0\u5317\u5E02\u9ECE\u660E\u91CC
-
-map_results['name'] = details['result']['name']
-# should be Taipei Main Station
-
-map_results['rating'] = details['result']['rating']
-# should be 4.1
+details['url'] = details_url
+map_results << details
 
 ## BAD request
-bad_project_url = map_api_path('findplacefromtext', '', '')
-map_response[bad_project_url] = call_map_url(config, bad_project_url)
-map_response[bad_project_url].parse # makes sure any streaming finishes
+blank_url = map_api_path('findplacefromtext', '', '')
+map_response[blank_url] = call_map_url(config, blank_url)
+blank = JSON.parse(map_response[blank_url])
+blank['url'] = blank_url
+map_results << blank
+map_response[blank_url].parse # makes sure any streaming finishes
 
 ## SAVE responses and results
 File.write('../spec/fixtures/map_response.yml', map_response.to_yaml)

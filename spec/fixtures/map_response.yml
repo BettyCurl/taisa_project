@@ -1,0 +1,270 @@
+---
+https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Taipei%20Main%20Station&inputtype=textquery: !ruby/object:HTTP::Response
+  version: '1.1'
+  uri: !ruby/object:HTTP::URI
+    uri: !ruby/object:Addressable::URI
+      validation_deferred: false
+      scheme: https
+      host: maps.googleapis.com
+      path: "/maps/api/place/findplacefromtext/json"
+      query: input=Taipei%20Main%20Station&inputtype=textquery&key=AIzaSyCkF7rIDbq8WFxWv8i09_dpeTkf1ueXwRA
+      authority: maps.googleapis.com
+      uri_string: https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Taipei%20Main%20Station&inputtype=textquery&key=AIzaSyCkF7rIDbq8WFxWv8i09_dpeTkf1ueXwRA
+      password: 
+      user: 
+      port: 
+  status: !ruby/object:HTTP::Response::Status
+    code: 200
+  headers: !ruby/object:HTTP::Headers
+    pile:
+    - - Content-Type
+      - application/json; charset=UTF-8
+    - - Date
+      - Sat, 27 Oct 2018 10:03:04 GMT
+    - - Expires
+      - Sat, 27 Oct 2018 10:08:04 GMT
+    - - Cache-Control
+      - public, max-age=300
+    - - Server
+      - scaffolding on HTTPServer2
+    - - X-Xss-Protection
+      - 1; mode=block
+    - - X-Frame-Options
+      - SAMEORIGIN
+    - - Alt-Svc
+      - quic=":443"; ma=2592000; v="44,43,39,35"
+    - - Accept-Ranges
+      - none
+    - - Vary
+      - Accept-Encoding
+    - - Connection
+      - close
+  proxy_headers: !ruby/object:HTTP::Headers
+    pile: []
+  content_type: !ruby/struct:HTTP::ContentType
+    mime_type: application/json
+    charset: UTF-8
+  body: !ruby/object:HTTP::Response::Body
+    stream: &1 !ruby/object:HTTP::Connection
+      persistent: false
+      keep_alive_timeout: 5.0
+      pending_request: false
+      pending_response: false
+      failed_proxy_connect: false
+      buffer: ''
+      parser: !ruby/object:HTTP::Response::Parser
+        parser: !ruby/object:HTTP::Parser {}
+        finished: false
+        headers: 
+        chunk: 
+      socket: !ruby/object:HTTP::Timeout::Null
+        options: {}
+        socket: !ruby/object:OpenSSL::SSL::SSLSocket
+          context: !ruby/object:OpenSSL::SSL::SSLContext
+            max_proto_version: 
+            min_proto_version: 769
+            verify_mode: 1
+            verify_hostname: true
+            cert_store: &2 !ruby/object:OpenSSL::X509::Store
+              verify_callback: 
+              error: 
+              error_string: 
+              chain: 
+              time: 
+          io: !ruby/object:TCPSocket {}
+          eof: false
+          rbuffer: ''
+          sync: true
+          hostname: maps.googleapis.com
+          sync_close: true
+          wbuffer: ''
+      keep_alive: false
+    connection: *1
+    streaming: false
+    contents: |
+      {
+         "candidates" : [
+            {
+               "place_id" : "ChIJcYy0Y3KpQjQRXiW_s2lGln8"
+            }
+         ],
+         "debug_log" : {
+            "line" : []
+         },
+         "status" : "OK"
+      }
+    encoding: !ruby/encoding UTF-8
+https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJcYy0Y3KpQjQRXiW_s2lGln8&fields=name,rating,formatted_address: !ruby/object:HTTP::Response
+  version: '1.1'
+  uri: !ruby/object:HTTP::URI
+    uri: !ruby/object:Addressable::URI
+      validation_deferred: false
+      scheme: https
+      host: maps.googleapis.com
+      path: "/maps/api/place/details/json"
+      query: placeid=ChIJcYy0Y3KpQjQRXiW_s2lGln8&fields=name,rating,formatted_address&key=AIzaSyCkF7rIDbq8WFxWv8i09_dpeTkf1ueXwRA
+      authority: maps.googleapis.com
+      uri_string: https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJcYy0Y3KpQjQRXiW_s2lGln8&fields=name,rating,formatted_address&key=AIzaSyCkF7rIDbq8WFxWv8i09_dpeTkf1ueXwRA
+      password: 
+      user: 
+      port: 
+  status: !ruby/object:HTTP::Response::Status
+    code: 200
+  headers: !ruby/object:HTTP::Headers
+    pile:
+    - - Content-Type
+      - application/json; charset=UTF-8
+    - - Date
+      - Sat, 27 Oct 2018 10:03:04 GMT
+    - - Expires
+      - Sat, 27 Oct 2018 10:08:04 GMT
+    - - Cache-Control
+      - public, max-age=300
+    - - Server
+      - scaffolding on HTTPServer2
+    - - X-Xss-Protection
+      - 1; mode=block
+    - - X-Frame-Options
+      - SAMEORIGIN
+    - - Alt-Svc
+      - quic=":443"; ma=2592000; v="44,43,39,35"
+    - - Accept-Ranges
+      - none
+    - - Vary
+      - Accept-Language,Accept-Encoding
+    - - Connection
+      - close
+  proxy_headers: !ruby/object:HTTP::Headers
+    pile: []
+  content_type: !ruby/struct:HTTP::ContentType
+    mime_type: application/json
+    charset: UTF-8
+  body: !ruby/object:HTTP::Response::Body
+    stream: &3 !ruby/object:HTTP::Connection
+      persistent: false
+      keep_alive_timeout: 5.0
+      pending_request: false
+      pending_response: false
+      failed_proxy_connect: false
+      buffer: ''
+      parser: !ruby/object:HTTP::Response::Parser
+        parser: !ruby/object:HTTP::Parser {}
+        finished: false
+        headers: 
+        chunk: 
+      socket: !ruby/object:HTTP::Timeout::Null
+        options: {}
+        socket: !ruby/object:OpenSSL::SSL::SSLSocket
+          context: !ruby/object:OpenSSL::SSL::SSLContext
+            max_proto_version: 
+            min_proto_version: 769
+            verify_mode: 1
+            verify_hostname: true
+            cert_store: *2
+          io: !ruby/object:TCPSocket {}
+          eof: false
+          rbuffer: ''
+          sync: true
+          hostname: maps.googleapis.com
+          sync_close: true
+          wbuffer: ''
+      keep_alive: false
+    connection: *3
+    streaming: false
+    contents: |
+      {
+         "html_attributions" : [],
+         "result" : {
+            "formatted_address" : "Taiwan, 台北市黎明里",
+            "name" : "Taipei Main Station",
+            "rating" : 4.1
+         },
+         "status" : "OK"
+      }
+    encoding: !ruby/encoding UTF-8
+https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=&inputtype=textquery: !ruby/object:HTTP::Response
+  version: '1.1'
+  uri: !ruby/object:HTTP::URI
+    uri: !ruby/object:Addressable::URI
+      validation_deferred: false
+      scheme: https
+      host: maps.googleapis.com
+      path: "/maps/api/place/findplacefromtext/json"
+      query: input=&inputtype=textquery&key=AIzaSyCkF7rIDbq8WFxWv8i09_dpeTkf1ueXwRA
+      authority: maps.googleapis.com
+      uri_string: https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=&inputtype=textquery&key=AIzaSyCkF7rIDbq8WFxWv8i09_dpeTkf1ueXwRA
+      password: 
+      user: 
+      port: 
+  status: !ruby/object:HTTP::Response::Status
+    code: 200
+  headers: !ruby/object:HTTP::Headers
+    pile:
+    - - Content-Type
+      - application/json; charset=UTF-8
+    - - Date
+      - Sat, 27 Oct 2018 10:03:05 GMT
+    - - Expires
+      - Sat, 27 Oct 2018 10:08:05 GMT
+    - - Cache-Control
+      - public, max-age=300
+    - - Server
+      - scaffolding on HTTPServer2
+    - - X-Xss-Protection
+      - 1; mode=block
+    - - X-Frame-Options
+      - SAMEORIGIN
+    - - Alt-Svc
+      - quic=":443"; ma=2592000; v="44,43,39,35"
+    - - Accept-Ranges
+      - none
+    - - Vary
+      - Accept-Encoding
+    - - Connection
+      - close
+  proxy_headers: !ruby/object:HTTP::Headers
+    pile: []
+  content_type: !ruby/struct:HTTP::ContentType
+    mime_type: application/json
+    charset: UTF-8
+  body: !ruby/object:HTTP::Response::Body
+    stream: &4 !ruby/object:HTTP::Connection
+      persistent: false
+      keep_alive_timeout: 5.0
+      pending_request: false
+      pending_response: false
+      failed_proxy_connect: false
+      buffer: ''
+      parser: !ruby/object:HTTP::Response::Parser
+        parser: !ruby/object:HTTP::Parser {}
+        finished: false
+        headers: 
+        chunk: 
+      socket: !ruby/object:HTTP::Timeout::Null
+        options: {}
+        socket: !ruby/object:OpenSSL::SSL::SSLSocket
+          context: !ruby/object:OpenSSL::SSL::SSLContext
+            max_proto_version: 
+            min_proto_version: 769
+            verify_mode: 1
+            verify_hostname: true
+            cert_store: *2
+          io: !ruby/object:TCPSocket {}
+          eof: false
+          rbuffer: ''
+          sync: true
+          hostname: maps.googleapis.com
+          sync_close: true
+          wbuffer: ''
+      keep_alive: false
+    connection: *4
+    streaming: false
+    contents: |
+      {
+         "candidates" : [],
+         "debug_log" : {
+            "line" : []
+         },
+         "status" : "INVALID_REQUEST"
+      }
+    encoding: !ruby/encoding UTF-8
