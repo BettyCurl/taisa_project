@@ -11,32 +11,30 @@ describe 'Tests DataCollection Library' do
 
   before do
     VCR.insert_cassette CASSETTE_FILE,
-                    record: :new_episodes,
-                    match_requests_on: %i[method uri headers]
+                        record: :new_episodes,
+                        match_requests_on: %i[method uri headers]
   end
 
-  after do 
-    VCR.eject_cassette 
+  after do
+    VCR.eject_cassette
   end
 
   describe 'Access Place ID' do
     it 'HAPPY: should provide correct place ID' do
       place = DataCollection::GoogleMapAPI.new(MAP_KEY).search_place(SEARCH_PLACE)
       _(place.place_id).must_equal CORRECT[0]['candidates'][0]['place_id']
-      _(place.url).must_equal CORRECT[0]['url']
     end
-  
 
     it 'SAD: should raise exception on blank searching place' do
-      proc do 
-      DataCollection::GoogleMapAPI.new(MAP_KEY).search_place('')
-      end.must_raise DataCollection::GoogleMapAPI::Errors::INVALID_REQUEST
+      proc do
+        DataCollection::GoogleMapAPI.new(MAP_KEY).search_place('')
+      end.must_raise DataCollection::GoogleMapAPI::Response::InvalidRequest
     end
 
     it 'SAD: should raise exception when unauthorized' do
       proc do
         DataCollection::GoogleMapAPI.new('BAD_KEY').search_place(SEARCH_PLACE)
-      end.must_raise DataCollection::GoogleMapAPI::Errors::REQUEST_DENIED
+      end.must_raise DataCollection::GoogleMapAPI::Response::RequestDenied
     end
   end
 
@@ -47,9 +45,7 @@ describe 'Tests DataCollection Library' do
 
     it 'HAPPY: should recognize searching place' do
       details = DataCollection::GoogleMapAPI.new(MAP_KEY).place_details(@place.place_id, DETAILS_ITMES)
-      _(details.url).must_equal CORRECT[1]['url']
       _(details.name).must_equal CORRECT[1]['result']['name']
-    end  
+    end
   end
-
 end

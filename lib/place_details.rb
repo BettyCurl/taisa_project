@@ -1,13 +1,9 @@
 module DataCollection
-  class PlaceDetails
-    def initialize(place_id, url, place_details_data)
+  # Retrieve data by place details api
+  class Details
+    def initialize(place_id, place_details_data)
       @details = place_details_data
       @place_id = place_id
-      @details_url = url
-    end
-
-    def url
-      @details_url
     end
 
     def name
