@@ -1,1 +1,1 @@
-# This project is meant to build the internal database for TAISA to manage the service points
+This project is meant to build the database system for managing volunteer service points and status

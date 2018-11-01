@@ -2,58 +2,67 @@ require 'http'
 require_relative 'place.rb'
 require_relative 'place_details.rb'
 
-MAP_API_BASE = 'https://maps.googleapis.com/maps/api/place/'
-
 module DataCollection
   # Library for Google Map API
   class GoogleMapAPI
-    module Errors
-      class INVALID_REQUEST < StandardError; end
-      class REQUEST_DENIED < StandardError; end
-    end
-
     def initialize(key, cache: {})
-      @google_map_key = key
+      @key = key
       @cache = cache
     end
 
     def search_place(place_name)
-      place_url = map_api_path('findplacefromtext', place_name, '')
-      place_data = JSON.parse(call_map_url(place_url))
-      #Place.new(place_name, place_url, place_data)
-      successful?(place_data) ? Place.new(place_name, place_url, place_data) : raise_error(place_data['status'])
+      place_response = Request.new(@key).get_response('findplacefromtext', place_name, '')
+      Place.new(place_response, self)
     end
 
     def place_details(place_id, details_items)
-      details_url = map_api_path('details', place_id, details_items)
-      details_data = JSON.parse(call_map_url(details_url))
-
-      successful?(details_data) ? PlaceDetails.new(place_id, details_url, details_data) : raise_error(place_data['status'])
+      detail_response = Request.new(@key).get_response('details', place_id, details_items)
+      Details.new(place_id, detail_response)
     end
 
-    private
+    # Sends out HTTP requests to Github
+    class Request
+      MAP_API_BASE = 'https://maps.googleapis.com/maps/api/place/'.freeze
 
-    def map_api_path(service, input, fields)
-      case service
-      when 'details'
-        MAP_API_BASE + service + '/json?placeid=' + input + '&fields=' + fields
-      when 'findplacefromtext'
-        MAP_API_BASE + service + '/json?input=' + input + '&inputtype=textquery'
+      def initialize(key, cache = {})
+        @key = key
+        @cache = cache
+      end
+
+      def get_response(service, input, fields)
+        case service
+        when 'details'
+          get(MAP_API_BASE + service + '/json?placeid=' + input + '&fields=' + fields)
+        when 'findplacefromtext'
+          get(MAP_API_BASE + service + '/json?input=' + input + '&inputtype=textquery')
+        end
+      end
+
+      def get(url)
+        http_response = @cache.fetch(url) do
+          HTTP.get(url + "&key=#{@key}")
+        end
+
+        Response.new(http_response.parse).tap do |response|
+          response.raise_error(response) unless response.successful?(response)
+        end
       end
     end
+    # Decorates HTTP responses from Google MAP with success/error
+    class Response < SimpleDelegator
+      # Request item is not available.
+      InvalidRequest = Class.new(StandardError)
+      # key is not correct
+      class RequestDenied < StandardError; end
 
-    def call_map_url(url)
-      @cache.fetch(url) do
-        HTTP.get(url + "&key=#{@google_map_key}")
+      def successful?(result)
+        result['status'] == 'OK'
       end
-    end
 
-    def successful?(result)
-      result['status'] == 'OK'
-    end
-
-    def raise_error(result)
-      result == 'INVALID_REQUEST' ? (raise Errors::INVALID_REQUEST) : (raise Errors::REQUEST_DENIED)
+      def raise_error(result)
+        raise InvalidRequest if result['status'] == 'INVALID_REQUEST'
+        raise RequestDenied unless result['status'] == 'INVALID_REQUEST'
+      end
     end
   end
 end

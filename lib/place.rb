@@ -1,24 +1,17 @@
 require_relative 'google_map_api.rb'
 
 module DataCollection
+  # Retrieve data by search place API
   class Place
-    def initialize(place_name, url, data_source)
-      @place_name = place_name
-      @place_url = url
-      @place_id = data_source['candidates'][0]['place_id']
+    attr_reader :place_id
+    def initialize(place_data, data_source)
+      @place_data = place_data
+      @place_id = place_data['candidates'][0]['place_id']
       @data_source = data_source
     end
 
-    def place_id
-      @place_id
-    end
-
-    def url
-      @place_url
-    end
-
-    def search_text
-      @place_name
+    def details
+      @details ||= @data_source.place_details(@place_id)
     end
   end
 end
