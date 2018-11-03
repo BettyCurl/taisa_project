@@ -10,7 +10,7 @@ task :spec do
 end
 
 namespace :quality do
-  CODE = 'lib/'
+  CODE = 'lib/'.freeze
 
   desc 'run all quality checks'
   task all: %i[rubocop reek flog]

@@ -322,4 +322,58 @@ http_interactions:
         }
     http_version: 
   recorded_at: Thu, 01 Nov 2018 08:43:50 GMT
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/details/json?fields=name,rating,formatted_address&key=<GOOGLE_MAP_KEY>&placeid=ChIJcYy0Y3KpQjQRXiW_s2lGln8
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Connection:
+      - close
+      Host:
+      - maps.googleapis.com
+      User-Agent:
+      - http.rb/3.3.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Sat, 03 Nov 2018 12:27:26 GMT
+      Expires:
+      - Sat, 03 Nov 2018 12:32:26 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - scaffolding on HTTPServer2
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="44,43,39,35"
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Language,Accept-Encoding
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "html_attributions" : [],
+           "result" : {
+              "formatted_address" : "Taiwan, 台北市黎明里",
+              "name" : "Taipei Main Station",
+              "rating" : 4.1
+           },
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Sat, 03 Nov 2018 12:27:26 GMT
 recorded_with: VCR 4.0.0

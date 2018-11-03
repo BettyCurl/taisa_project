@@ -8,7 +8,7 @@ require 'minitest/rg'
 require 'vcr'
 require 'webmock'
 
-require_relative '../lib/google_map_api.rb'
+require_relative '../init.rb'
 
 SEARCH_PLACE = 'Taipei%20Main%20Station'.freeze
 PLACE_ID = 'ChIJcYy0Y3KpQjQRXiW_s2lGln8'.freeze

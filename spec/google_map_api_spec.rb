@@ -21,30 +21,34 @@ describe 'Tests DataCollection Library' do
 
   describe 'Access Place ID' do
     it 'HAPPY: should provide correct place ID' do
-      place = DataCollection::GoogleMapAPI.new(MAP_KEY).search_place(SEARCH_PLACE)
-      _(place.place_id).must_equal CORRECT[0]['candidates'][0]['place_id']
+      place = ServiceMap::GoogleMap::PointMapper.new(MAP_KEY).find(SEARCH_PLACE)
+      _(place.origin_id).must_equal CORRECT[0]['candidates'][0]['place_id']
     end
 
     it 'SAD: should raise exception on blank searching place' do
       proc do
-        DataCollection::GoogleMapAPI.new(MAP_KEY).search_place('')
-      end.must_raise DataCollection::GoogleMapAPI::Response::InvalidRequest
+        ServiceMap::GoogleMap::PointMapper.new(MAP_KEY).find('')
+      end.must_raise ServiceMap::GoogleMap::Api::Response::InvalidRequest
     end
 
     it 'SAD: should raise exception when unauthorized' do
       proc do
-        DataCollection::GoogleMapAPI.new('BAD_KEY').search_place(SEARCH_PLACE)
-      end.must_raise DataCollection::GoogleMapAPI::Response::RequestDenied
+        ServiceMap::GoogleMap::PointMapper.new('BAD_KEY')
+                                          .find(SEARCH_PLACE)
+      end.must_raise ServiceMap::GoogleMap::Api::Response::RequestDenied
     end
   end
 
   describe 'Place Details' do
     before do
-      @place = DataCollection::GoogleMapAPI.new(MAP_KEY).search_place(SEARCH_PLACE)
+      @place = ServiceMap::GoogleMap::PointMapper.new(MAP_KEY)
+                                                 .find(SEARCH_PLACE)
     end
 
     it 'HAPPY: should recognize searching place' do
-      details = DataCollection::GoogleMapAPI.new(MAP_KEY).place_details(@place.place_id, DETAILS_ITMES)
+      details = ServiceMap::GoogleMap::DetailsMapper
+                .new(MAP_KEY, @place.origin_id)
+                .load_details
       _(details.name).must_equal CORRECT[1]['result']['name']
     end
   end
