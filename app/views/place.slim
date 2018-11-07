@@ -1,0 +1,16 @@
+.container
+  .row
+    h2
+      span.place.name style="padding-left:20px"
+        = place.details.name
+  .container
+    .row
+      .col-lg-11.col-md-10.col-sm-6
+        span.project.attribute Rating: 
+        span.project.detail.rating
+          = place.details.rating
+      .col-lg-11.col-md-10.col-sm-6
+        span.project.attribute Address: 
+        span.project.detail.addr
+          = place.details.formatted_address
+

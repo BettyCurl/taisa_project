@@ -5,8 +5,8 @@ describe 'Tests DataCollection Library' do
     config.cassette_library_dir = CASSETTES_FOLDER
     config.hook_into :webmock # or :fakeweb
 
-    config.filter_sensitive_data('<GOOGLE_MAP_KEY>') { MAP_KEY }
-    config.filter_sensitive_data('<GOOGLE_MAP_ESC>') { CGI.escape(MAP_KEY) }
+    config.filter_sensitive_data('<GOOGLE_MAP_KEY>') { GM_KEY }
+    config.filter_sensitive_data('<GOOGLE_MAP_ESC>') { CGI.escape(GM_KEY) }
   end
 
   before do
@@ -21,13 +21,13 @@ describe 'Tests DataCollection Library' do
 
   describe 'Access Place ID' do
     it 'HAPPY: should provide correct place ID' do
-      place = ServiceMap::GoogleMap::PointMapper.new(MAP_KEY).find(SEARCH_PLACE)
+      place = ServiceMap::GoogleMap::PointMapper.new(GM_KEY).find(SEARCH_PLACE)
       _(place.origin_id).must_equal CORRECT[0]['candidates'][0]['place_id']
     end
 
     it 'SAD: should raise exception on blank searching place' do
       proc do
-        ServiceMap::GoogleMap::PointMapper.new(MAP_KEY).find('')
+        ServiceMap::GoogleMap::PointMapper.new(GM_KEY).find('')
       end.must_raise ServiceMap::GoogleMap::Api::Response::InvalidRequest
     end
 
@@ -41,15 +41,16 @@ describe 'Tests DataCollection Library' do
 
   describe 'Place Details' do
     before do
-      @place = ServiceMap::GoogleMap::PointMapper.new(MAP_KEY)
+      @place = ServiceMap::GoogleMap::PointMapper.new(GM_KEY)
                                                  .find(SEARCH_PLACE)
     end
 
     it 'HAPPY: should recognize searching place' do
       details = ServiceMap::GoogleMap::DetailsMapper
-                .new(MAP_KEY, @place.origin_id)
+                .new(GM_KEY, @place.origin_id)
                 .load_details
       _(details.name).must_equal CORRECT[1]['result']['name']
+      _(@place.details.name).must_equal CORRECT[1]['result']['name']
     end
   end
 end
